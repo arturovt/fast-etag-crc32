@@ -1,8 +1,8 @@
 {
   "name": "fast-etag-crc32",
-  "version": "0.2.0-alpha.2",
+  "version": "0.0.0",
   "license": "Apache-2.0",
-  "description": "Linux process statistics via /proc for Node.js",
+  "description": "Fast ETag generation for Node.js using CRC32 via N-API native bindings",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/arturovt/fast-etag-crc32.git"
