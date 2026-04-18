@@ -1,6 +1,6 @@
 {
   "name": "fast-etag-crc32",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "Apache-2.0",
   "description": "Fast ETag generation for Node.js using CRC32 via N-API native bindings",
   "repository": {
