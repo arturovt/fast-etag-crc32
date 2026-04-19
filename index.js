@@ -45,9 +45,12 @@ function loadDefaultBinding(dir) {
 }
 
 // `__dirname` is undefined when a bundler inlines this CJS file into an ESM
-// output. In that case index.mjs handles binding init via import.meta.dirname.
+// output. `import.meta.dirname` is used as the fallback — it is available in
+// CJS context since Node.js 22.16.0 (promoted to stable).
 const binding =
-  typeof __dirname !== 'undefined' ? loadDefaultBinding(__dirname) : null;
+  typeof __dirname !== 'undefined'
+    ? loadDefaultBinding(__dirname)
+    : loadDefaultBinding(import.meta.dirname);
 
 // `module` is undefined when this file is evaluated in an ESM scope (e.g. when
 // a bundler inlines it into an .mjs bundle). index.mjs re-exports everything
