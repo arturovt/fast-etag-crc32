@@ -27,7 +27,7 @@ jobs:
       CXX: g++
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # Linux only: install a specific GCC version via egor-tensin/setup-gcc
       - name: Setup GCC
@@ -43,9 +43,9 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
         if: ${{ matrix.platform.runner == 'windows-latest' }}
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: '22.16.0'
 
       # Python 3.11 is the last version with distutils built-in.
       # node-gyp depends on distutils; 3.12+ removed it and requires setuptools as a shim.
@@ -62,7 +62,7 @@ jobs:
       # Upload only the platform-specific prebuilds — shared files are assembled
       # in the publish job to avoid duplicating them across 3 artifacts
       - name: Upload prebuilds
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: ${{ github.event_name == 'workflow_dispatch' }}
         with:
           name: prebuilds-${{ matrix.platform.runner }}
@@ -73,13 +73,13 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'workflow_dispatch' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           submodules: recursive
 
       # Download all 3 platform prebuilds and merge them into a single prebuilds/ folder
       - name: Download all prebuilds
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: prebuilds-*
           merge-multiple: true
@@ -87,7 +87,7 @@ jobs:
 
       # Single final artifact containing shared files + all platform .node binaries
       - name: Upload final artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: build
           path: |
